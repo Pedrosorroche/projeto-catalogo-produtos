@@ -3,11 +3,16 @@ package br.com.mvc.mudi.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Pedido {
 
@@ -20,6 +25,9 @@ public class Pedido {
 	private String urlProduto;
 	private String urlImagem;
 	private String descricao;
+	
+	@Enumerated(EnumType.STRING)
+	private StatusPedido status;
 	
 
 	public String getNomeProduto() {
