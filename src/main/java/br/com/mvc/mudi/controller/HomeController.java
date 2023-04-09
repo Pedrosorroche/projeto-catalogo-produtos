@@ -20,7 +20,7 @@ public class HomeController {
 		pedido.setUrlProduto("https://www.amazon.com.br/dp/B07PDHSJ1H/ref=ods_gw_nh_atf23q1_cr_deskquadv2?pf_rd_r=J3ZBZDE04M9KW93BWAZB&pf_rd_p=70108310-aa5b-40cc-8e25-6551ff94d86a&pd_rd_r=8dbc77bf-018c-4811-b517-3bb82b35600f&pd_rd_w=yRze0&pd_rd_wg=TMR7h&ref_=pd_gw_unk");
 		pedido.setDescricao("echo dot alexa");
 		
-		List<Pedido> pedidos = Arrays.asList(pedido);
+		List<Pedido> pedidos = Arrays.asList(pedido, pedido, pedido);
 		model.addAttribute("pedidos", pedidos);
 		
 		return "home";
