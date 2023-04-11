@@ -6,11 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pedidos</title>
 
+    <!--CSS-->
+    <link th:href="@{/css/estilo.css}" rel="stylesheet" />
+
     <!--CSS BootStrap 4-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-    <nav class="navbar navbar-light mb-3 p-3" style="background-color: #03466E;">
+    <nav class="navbar navbar-light bg-color mb-3 p-3">
         <img th:src="@{/imagens/logo.png}" src="../static/imagens/logo.png" width="220px">
         <button type="submit" class="btn btn-outline-secundary">Logout</button>
     </nav>
@@ -26,11 +29,17 @@
                 <a class="nav-item nav-link" href="">Entregues</a>
             </div>
             <a href="/pedido/formulario"><button class="btn btn-outline-secundary my-2 my-sm-0" type="submit">Novo</button></a>
-            
         </nav>
 
         <div class="card mb-3" th:each="pedido : ${pedidos}">
-            <div class="card-header" th:text="${pedido.nomeProduto}">Nome do Produto</div>
+
+            <th:block th:switch="${pedido.status.name()}" >
+                <div th:case="'AGUARDANDO'" class="card-header alert-warning" th:text="${pedido.nomeProduto}">Nome do Produto</div>
+                <div th:case="'APROVADO'" class="card-header alert-success" th:text="${pedido.nomeProduto}">Nome do Produto</div>
+                <div th:case="'ENTREGUE'" class="card-header alert-info" th:text="${pedido.nomeProduto}">Nome do Produto</div>
+            </th:block>
+
+            
             <div class="card-body">
                 <div class="row">
                     <div class="col-12 col-sm-8 mb-3">
@@ -53,10 +62,61 @@
                         </div>
                     </div>
                 </div>
-                
+                <button type="button" class="btn btn-info mr-2" data-toggle="modal" data-target="#modalAtualizacao">Atualizar</button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">Deletar</button>
             </div>
+
+            <!--Modais-->
+            <div class="modal fade" id="modalAtualizacao" tabindex="-1" role="dialog" aria-labelledby="modalAtualizacao" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="modalAtualizacaoLabel">Atualizar Produto</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="nomeProduto">Produto</label>
+                            <input th:field="*{nomeProduto}" th:errorclass="is-invalid" class="form-control" placeholder="nome do produto">
+                            <small>Informe qual o nome do produto.</small>
+                            <div class="invalid-feedback" th:errors="*{nomeProduto}">
+                                Erros do Nome do Produto
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="urlProduto">Url</label>
+                            <input th:field="*{urlProduto}" th:errorclass="is-invalid" class="form-control" placeholder="url do produto">
+                            <small>Procure em um site o produto que você deseja e cole a url da página aqui.</small>
+                            <div class="invalid-feedback" th:errors="*{urlProduto}">
+                                Erros da Url do Produto
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="urlImagem">Imagem</label>
+                            <input th:field="*{urlImagem}" th:errorclass="is-invalid" class="form-control" placeholder="url da imagem">
+                            <small>Procure a url de uma boa imagem do produto e cole aqui para ajudar a conseguir compradores.</small>
+                            <div class="invalid-feedback" th:errors="*{urlImagem}">
+                                Erros da Url da imagem
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-info">Salvar</button>
+                    </div>
+                  </div>
+                </div>
+            </div>            
+            
+            
         </div>
     </div>
     
 </body>
+
+<!--JS BootStrap 4-->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 </html>

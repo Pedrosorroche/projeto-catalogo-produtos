@@ -1,0 +1,13 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.bg-color{
+    background-image: linear-gradient(-90deg, #54afe6, #03466e);
+}
+
+.modal{
+    max-width: 18rem;
+    background-color: #54afe6;
+}

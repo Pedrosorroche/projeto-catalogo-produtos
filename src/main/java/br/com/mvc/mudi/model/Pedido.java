@@ -30,6 +30,12 @@ public class Pedido {
 	private StatusPedido status;
 	
 
+	public StatusPedido getStatus() {
+		return status;
+	}
+	public void setStatus(StatusPedido status) {
+		this.status = status;
+	}
 	public String getNomeProduto() {
 		return nomeProduto;
 	}
